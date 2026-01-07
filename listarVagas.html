@@ -419,12 +419,17 @@
                 <button class="clear-search" id="clearSearch">×</button>
             </div>
             <div class="filter-group">
-                <label for="especialidadeFilter">Especialidade</label>
+                <label for="especialidadeFilter">Profissão</label>
                 <select id="especialidadeFilter" class="filter-select">
-                    <option value="">Todas as especialidades</option>
+                    <option value="">Todas as Profissões</option>
                     <option value="Dentista">Dentista</option>
+                    <option value="Avaliador">Avaliação e Planejamento</option>
                     <option value="Protético">Protético</option>
                     <option value="ASB ou TSB">ASB ou TSB</option>
+                    <option value="CRC">CRC (Central de Relacionamento)</option>
+                    <option value="Recepcionista">Recepcionista de Clínica Odontológica</option>
+                    <option value="Gerente">Gerente de Clínica Odontológica</option>
+                    <option value="Divulgador">Divulgador de Clínica Odontológica</option>
                     <option value="Estágios">Estágios</option>
                 </select>
             </div>
@@ -756,25 +761,82 @@
         
         // Função para mapear valores do banco para os valores do filtro
         function mapearEspecialidade(valorBanco) {
-            if (!valorBanco) return '';
-            
-            const normalizado = normalizarTexto(valorBanco);
-            
-            if (normalizado.includes('dentist') || normalizado.includes('denti') || normalizado === 'dentista') {
-                return 'Dentista';
-            }
-            if (normalizado.includes('protes') || normalizado === 'protético') {
-                return 'Protético';
-            }
-            if (normalizado.includes('asb') || normalizado.includes('tsb') || normalizado.includes('auxiliar') || normalizado.includes('técnico')) {
-                return 'ASB ou TSB';
-            }
-            if (normalizado.includes('estag') || normalizado === 'estágios') {
-                return 'Estágios';
-            }
-            
-            return valorBanco;
-        }
+    if (!valorBanco) return '';
+    
+    const normalizado = normalizarTexto(valorBanco);
+    
+    // Dentista
+    if (normalizado.includes('dentist') || normalizado.includes('cirurgião dentista') || normalizado.includes('odontolog')) {
+        return 'Dentista';
+    }
+    // Avaliação e Planejamento
+    if (
+        normalizado.includes('avaliador') ||
+        normalizado.includes('planejamento') ||
+        normalizado.includes('avaliacao') ||
+        normalizado.includes('avaliação') ||
+        normalizado.includes('ortodont') ||
+        normalizado.includes('diagnostic')
+    ) {
+        return 'Avaliador';
+    }
+    // Protético
+    if (normalizado.includes('protes') || normalizado.includes('protet') || normalizado === 'protético') {
+        return 'Protético';
+    }
+    // ASB ou TSB
+    if (
+        normalizado.includes('asb') ||
+        normalizado.includes('tsb') ||
+        normalizado.includes('auxiliar') ||
+        normalizado.includes('técnico') ||
+        normalizado.includes('instrumentador')
+    ) {
+        return 'ASB ou TSB';
+    }
+    // CRC
+    if (
+        normalizado.includes('crc') ||
+        normalizado.includes('relacionamento') ||
+        normalizado.includes('central') ||
+        normalizado.includes('atendente') ||
+        normalizado.includes('suporte ao cliente')
+    ) {
+        return 'CRC';
+    }
+    // Recepcionista
+    if (
+        normalizado.includes('recepcionist') ||
+        normalizado.includes('atendente de clínica') ||
+        normalizado.includes('atendimento')
+    ) {
+        return 'Recepcionista';
+    }
+    // Gerente
+    if (
+        normalizado.includes('gerente') ||
+        normalizado.includes('coordenador') ||
+        normalizado.includes('gestor')
+    ) {
+        return 'Gerente';
+    }
+    // Divulgador
+    if (
+        normalizado.includes('divulgador') ||
+        normalizado.includes('marketing') ||
+        normalizado.includes('captação') ||
+        normalizado.includes('atração de paciente')
+    ) {
+        return 'Divulgador';
+    }
+    // Estágios
+    if (normalizado.includes('estag') || normalizado.includes('trainee') || normalizado.includes('aprendiz')) {
+        return 'Estágios';
+    }
+    
+    // Se não corresponder a nenhuma, retorna o valor original (útil para depuração)
+    return valorBanco;
+}
         
         // Mapeamento de UF para nome completo do estado
         function mapearEstado(uf) {
@@ -873,3 +935,4 @@
     </script>
 </body>
 </html>
+
